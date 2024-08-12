@@ -1,7 +1,18 @@
-import { Inter } from "next/font/google";
+import { Arimo,  Roboto } from "next/font/google";
 import "./globals.css";
-import 'bootstrap/dist/css/bootstrap.min.css'
-const inter = Inter({ subsets: ["latin"] });
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./components/header";
+import Footer from "./components/footer";
+const arimo = Arimo({ subsets: ["latin"],
+  display:"swap",
+  variable:"--primary-font"
+ });
+ const roboto = Roboto({ weight:["300","400","500"],subsets: ["latin"],
+  display:"swap",
+    variable:"--secondary-font"
+ });
+
+ 
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +22,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${arimo.variable} ${roboto.variable} `}>
+        <Header/>
+        {children}
+        <Footer/>
+        </body>
     </html>
   );
 }
