@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux"; 
 import { loadUser } from "../redux/slice";
-import { Provider } from "react-redux";
-import store from "@/app/redux/store";
+import ReduxProvider from "../redux/provider";
 
 function CreateBlogComponent() {
   const [title, setTitle] = useState("");
@@ -18,7 +17,7 @@ function CreateBlogComponent() {
     dispatch(loadUser());
   }, [dispatch]);
 
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   if (!isAuthenticated) {
     return <p className="text-red-600">You need to be logged in to create a post.</p>;
@@ -26,13 +25,21 @@ function CreateBlogComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const tagsArray = tags.split(",").map((tag) => tag.trim()).filter((tag) => tag);
+    const tagsArray = tags
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag);
 
-    const newPost = { title, body, tags: tagsArray };
+    if (tagsArray.length === 0) {
+      setMessage("Please provide at least one valid tag.");
+      return;
+    }
+
+    const newPost = {  title, body,user, tags: tagsArray };
 
     try {
       setLoading(true);
-      const response = await fetch("/api/posts", {
+      const response = await fetch("/api/posts/createpost", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newPost),
@@ -60,7 +67,7 @@ function CreateBlogComponent() {
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">
         Create a New Post
       </h1>
-      {message && <p className="mb-4 text-green-600">{message}</p>}
+      {message && <p className={`mb-4 ${message.includes("successfully") ? "text-green-600" : "text-red-600"}`}>{message}</p>}
       {loading && <p className="mb-4 text-blue-600">Creating post...</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -119,11 +126,10 @@ function CreateBlogComponent() {
   );
 }
 
-// Wrap only the CreateBlog component with Provider
 export default function CreateBlog() {
   return (
-    <Provider store={store}>
+    <ReduxProvider>
       <CreateBlogComponent />
-    </Provider>
+    </ReduxProvider>
   );
 }

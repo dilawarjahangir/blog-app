@@ -1,16 +1,51 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+
+const ReplySchema = new mongoose.Schema({
+  reply: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+});
 
 const PostSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, 'Please add a title'],
-    unique: true,
-    trim: true,
-    maxlength: [40, 'Title cannot be more than 40 characters'],
+    required: true,
   },
-  content: {
+  body: {
     type: String,
-    required: [true, 'Please add content'],
+    required: true,
+  },
+  user: {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+  },
+  tags: {
+    type: [String],
+    required: true,
+  },
+
+  replies: {
+    type: [ReplySchema],
+    required: false,
   },
   createdAt: {
     type: Date,
@@ -18,4 +53,6 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('Post', PostSchema);
+const Post = mongoose.models.Post || mongoose.model("Post", PostSchema);
+
+module.exports = Post;

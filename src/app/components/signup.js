@@ -18,7 +18,6 @@ const Signup = () => {
       });
       const data = await response.json();
       if (data.success) {
-        // User created successfully, redirect to login page
         window.location.href = "/login";
       } else {
         setError(data.message);

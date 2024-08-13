@@ -5,10 +5,8 @@ import Link from "next/link";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch('/api/user/login', {
         method: 'POST',
@@ -17,7 +15,6 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
       const data = await response.json();
 
       if (data.success) {

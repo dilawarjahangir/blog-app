@@ -1,7 +1,4 @@
-import Image from 'next/image';
-import Card from "../components/card";
-import Styles from "./blog.module.css"; // Assuming this CSS file exists and is correctly set up
-import BlogPost from '../components/blogPost';
+import BlogPost from './_components/blogPost';
 
 
 
