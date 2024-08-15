@@ -1,5 +1,5 @@
-import connectDatabase from "@/app/utills/db/db";
-import Post from "@/app/utills/model/post";
+import connectDatabase from "@/app/_utills/db/db";
+import Post from "@/app/_utills/model/post";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -10,25 +10,25 @@ export async function PUT(request, { params }) {
   try {
     const { id } = params;
 
-    // Validate the ID format
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json({ success: false, message: "Invalid ID format." }, { status: 400 });
     }
 
-    // Parse the request body to get the reply data
+ 
     const { reply, email } = await request.json();
 
     if (!reply || !email) {
       return NextResponse.json({ success: false, message: "Reply and email are required." }, { status: 400 });
     }
 
-    // Find the post by ID and update it by adding the new reply
+ 
     const post = await Post.findByIdAndUpdate(
       id,
       {
         $push: { replies: { reply, email, date: new Date() } },
       },
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     if (!post) {

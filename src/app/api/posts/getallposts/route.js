@@ -1,6 +1,6 @@
 // src/pages/api/post/getallpost.js
-import connectDatabase from "@/app/utills/db/db"; // Ensure the correct path to your db connection
-import Post from "@/app/utills/model/post"; // Ensure the correct path to your Post model
+import connectDatabase from "@/app/_utills/db/db"; // Ensure the correct path to your db connection
+import Post from "@/app/_utills/model/post"; // Ensure the correct path to your Post model
 import { NextResponse } from "next/server";
 
 export async function  GET() {

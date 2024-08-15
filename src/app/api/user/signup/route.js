@@ -1,8 +1,8 @@
-import User from "@/app/utills/model/user";
-import sendToken from "@/app/utills/jwtToken";
+import User from "@/app/_utills/model/user";
+import sendToken from "@/app/_utills/jwtToken";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import connectDatabase from "@/app/utills/db/db";
+import connectDatabase from "@/app/_utills/db/db";
 
 
 export async function POST(request) {

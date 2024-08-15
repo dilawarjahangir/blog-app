@@ -1,4 +1,4 @@
-import connectDatabase from '@/app/utills/db/db';
+import connectDatabase from '@/app/_utills/db/db';
 import { NextResponse } from 'next/server';
 
 // Assuming you're using the new app directory structure in Next.js 13 or later

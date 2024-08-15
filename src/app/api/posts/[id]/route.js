@@ -1,5 +1,5 @@
-import connectDatabase from "@/app/utills/db/db";
-import Post from "@/app/utills/model/post";
+import connectDatabase from "@/app/_utills/db/db";
+import Post from "@/app/_utills/model/post";
 import { NextResponse } from "next/server";
 import mongoose from 'mongoose';
 
@@ -9,16 +9,16 @@ export async function GET(request, { params }) {
   try {
     const { id } = params;
 
-    // Log the ID to verify it's received correctly
+  
     console.log('ID received:', id);
 
-    // Validate the ID format
+   
     if (!mongoose.Types.ObjectId.isValid(id)) {
     
       return NextResponse.json({ success: false, message: 'Invalid ID format.' }, { status: 400 });
     }
 
-    // Attempt to find the post by ID
+ 
     const post = await Post.findById(id);
 
     if (!post) {

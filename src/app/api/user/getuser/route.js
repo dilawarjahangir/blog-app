@@ -1,7 +1,7 @@
 // Import necessary modules
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import User from '@/app/utills/model/user'; // Adjust the import path according to your project structure
+import User from '@/app/_utills/model/user'; // Adjust the import path according to your project structure
 
 export async function GET(request) {
   try {

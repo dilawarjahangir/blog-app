@@ -1,8 +1,8 @@
 // /src/app/api/posts/search/route.js
 
 import { NextResponse } from "next/server";
-import connectDatabase from "@/app/utills/db/db";
-import Post from "@/app/utills/model/post";
+import connectDatabase from "@/app/_utills/db/db";
+import Post from "@/app/_utills/model/post";
 
 export async function GET(req) {
   try {
@@ -18,7 +18,6 @@ export async function GET(req) {
     const posts = await Post.find({
       $or: [
         { title: { $regex: q, $options: "i" } },
-        { body: { $regex: q, $options: "i" } },
         { tags: { $regex: q, $options: "i" } },
       ],
     }).select("title _id");

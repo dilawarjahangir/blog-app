@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser, logoutUser } from "../redux/slice";
+import { loadUser } from "../redux/slice";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -26,7 +26,7 @@ function MyHeader() {
     setSearchQuery(query);
 
     if (query.trim() === "") {
-      setSearchResults([]); // Clear the results if the query is empty
+      setSearchResults([]);
       return;
     }
 
@@ -50,9 +50,7 @@ function MyHeader() {
       });
 
       if (response.ok) {
-       
         window.location.reload();
-
       } else {
         const errorData = await response.json();
         console.error(`Failed to logout: ${errorData.message}`);
@@ -70,16 +68,17 @@ function MyHeader() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Form className="d-flex position-relative flex-grow-1 mx-4">
+          <Form className="d-flex position-relative flex-grow-1  mx-4">
             <Form.Control
+            
               type="text"
               placeholder="Search"
-              className=""
+              className="m-2"
               value={searchQuery}
               onChange={handleSearch}
             />
             {searchQuery && searchResults.length > 0 && (
-              <ListGroup className="position-absolute top-100 w-100 mt-2 z-50">
+              <ListGroup className="position-absolute top-100  w-50 mt-2 z-50">
                 {searchResults.map((result) => (
                   <ListGroup.Item key={result._id} className="bg-white">
                     <Link href={`/blog/${result._id}`} className="text-dark">
@@ -90,30 +89,33 @@ function MyHeader() {
               </ListGroup>
             )}
           </Form>
-          <Nav className="ml-auto">
-            <Nav.Link as={Link} href="/">
+          <Nav className="  ml-auto">
+            <Link className="nav-link" as={Link} href="/">
               Home
-            </Nav.Link>
-            <Nav.Link as={Link} href="/blog">
+            </Link>
+            <Link className="nav-link" as={Link} href="/blog">
               Blog
-            </Nav.Link>
+            </Link>
+            <Link className="nav-link" as={Link} href="/pagination">
+              Pagination
+            </Link>
             {isAuthenticated ? (
               <>
-                <Nav.Link as={Link} href="/create-blog">
+                <Link className="nav-link" as={Link} href="/create-blog">
                   Create Blog
-                </Nav.Link>
+                </Link>
                 <button onClick={handleLogOut} className="btn btn-danger ms-3">
                   Log Out
                 </button>
               </>
             ) : (
-              <Nav.Link
+              <Link
                 
                 href="/login"
                 className="btn btn-success ms-3"
               >
                 Log-in
-              </Nav.Link>
+              </Link>
             )}
           </Nav>
         </Navbar.Collapse>
@@ -122,7 +124,7 @@ function MyHeader() {
   );
 }
 
-// Wrap only the CreateBlog component with Provider
+
 export default function Header({ children }) {
   return (
     <Provider store={store}>

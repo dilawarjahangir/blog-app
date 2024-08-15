@@ -21,7 +21,7 @@ const fetchBlogDetail = async (id) => {
   }
 };
 
-
+// Function to convert markdown to HTML
 const markdownToHtml = async (markdown) => {
   const processedContent = await remark().use(html).process(markdown);
   return processedContent.toString();
@@ -46,7 +46,7 @@ const BlogDetailPage = async ({ params }) => {
     );
   }
 
-
+  // Convert the Markdown title, body, and tags to HTML
   const titleHtml = await markdownToHtml(dataObj.post.title);
   const contentHtml = await markdownToHtml(dataObj.post.body);
 
@@ -62,7 +62,7 @@ const BlogDetailPage = async ({ params }) => {
         <div className="relative w-full px-8 py-12 bg-white shadow-lg sm:rounded-3xl sm:p-20">
           <div className="w-full mx-auto">
             <div>
-             
+              {/* Render the HTML title parsed from Markdown */}
               <h1 className="text-3xl font-semibold text-gray-800">
                 <div dangerouslySetInnerHTML={{ __html: titleHtml }} />
               </h1>
@@ -76,7 +76,7 @@ const BlogDetailPage = async ({ params }) => {
             </div>
 
             <div className="mt-6 text-gray-700">
-         
+              {/* Render the HTML content parsed from Markdown */}
               <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
             </div>
 

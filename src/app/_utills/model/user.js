@@ -19,11 +19,9 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-
-
 userSchema.methods.getJwtToken = function () {
-  console.log("key", process.env.JWT_SECRET_KEY)
-  console.log("expiretime", process.env.JWT_EXPIRES_TIME)
+  console.log("key", process.env.JWT_SECRET_KEY);
+  console.log("expiretime", process.env.JWT_EXPIRES_TIME);
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
     expiresIn: process.env.JWT_EXPIRES_TIME,
   });

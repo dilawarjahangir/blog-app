@@ -1,7 +1,7 @@
 // src/app/api/user/login/route.js
 import { NextResponse } from "next/server";
-import User from "@/app/utills/model/user";
-import connectDatabase from "@/app/utills/db/db";
+import User from "@/app/_utills/model/user";
+import connectDatabase from "@/app/_utills/db/db";
 
 export async function POST(request) {
   await connectDatabase();
